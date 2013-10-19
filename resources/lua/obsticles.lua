@@ -27,7 +27,7 @@ function jpm.obsticles.generate()
 	end
 end
 function jpm.obsticles.randomise(dt)
-	if jpm.obsticles.timer > 0.75 then
+	if jpm.obsticles.timer > 0.25 then
 		jpm.obsticles.timer = 0
 		jpm.obsticles.pick = math.random(1, 10)
 		for k, v in pairs(jpm.objects) do

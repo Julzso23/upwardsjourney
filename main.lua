@@ -2,37 +2,33 @@ jpm = {}
 
 function love.load()
 	require("resources/lua/character")
+	require("resources/lua/controls")
 	require("resources/lua/obsticles")
 	require("resources/lua/screen")
 	require("resources/lua/gui")
 	require("resources/lua/music")
+	require("resources/lua/effects")
 
-	table.insert(jpm.players, jpm.char.newPlayer())
 	table.insert(jpm.players, jpm.char.newPlayer())
 
 	jpm.obsticles.generate()
 
 	jpm.music.init()
 
+	jpm.effects.background.init()
+
+	logo = love.graphics.newImage("resources/images/other/Upwards Journey.png")
+
 	love.graphics.setBackgroundColor(255, 255, 255)
 end
 
 function love.update(dt)
 	jpm.music.update()
+	
+	jpm.effects.background.update(dt)
 
-	if love.keyboard.isDown("left") then
-		jpm.players[1]:move("left", dt)
-	end
-	if love.keyboard.isDown("right") then
-		jpm.players[1]:move("right", dt)
-	end
-
-	if love.keyboard.isDown("a") then
-		jpm.players[2]:move("left", dt)
-	end
-	if love.keyboard.isDown("d") then
-		jpm.players[2]:move("right", dt)
-	end
+	jpm.controls.keyboard(dt)
+	jpm.controls.controller(dt)
 
 	jpm.obsticles.randomise(dt)
 
@@ -42,10 +38,14 @@ function love.update(dt)
 end
 
 function love.draw()
+	jpm.effects.background.draw()
+
 	for k, v in pairs(jpm.players) do
 		v:draw()
 	end
 	for k, v in pairs(jpm.objects) do
 		v:draw()
 	end
+
+	love.graphics.draw(logo, jpm.screen.x(50), 0, 0, 0.4, 0.4, 512, 0)
 end

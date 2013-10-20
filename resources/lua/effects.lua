@@ -15,5 +15,5 @@ function jpm.effects.background.update(dt)
 end
 function jpm.effects.background.draw()
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(jpm.effects.background.image, 0, jpm.screen.y(jpm.effects.background.y), 0, 1, 1)
+	love.graphics.draw(jpm.effects.background.image, 0, jpm.screen.y(jpm.effects.background.y), 0, jpm.screen.x(0.078125), jpm.screen.y(0.139))
 end

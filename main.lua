@@ -35,6 +35,10 @@ function love.update(dt)
 	for k, v in pairs(jpm.objects) do
 		v:update(k, dt)
 	end
+	
+	for k, v in pairs(jpm.players) do
+		v:checkCollisions()
+	end
 end
 
 function love.draw()

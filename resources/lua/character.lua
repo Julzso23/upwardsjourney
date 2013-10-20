@@ -10,6 +10,7 @@ function jpm.char.newPlayer()
 	p.x = 50
 	p.y = 85
 	p.r = 0
+	p.scale = {0.059, 0.104}
 	p.spd = 75
 	p.img = {
 		current = nil,
@@ -17,6 +18,9 @@ function jpm.char.newPlayer()
 		left = love.graphics.newImage("resources/images/characters/main/left.png"),
 		right = love.graphics.newImage("resources/images/characters/main/right.png")
 	}
+	p.w = 3.1
+	p.b = 6.9
+	p.t = 11
 
 	return p
 end
@@ -64,5 +68,19 @@ end
 
 function jpm.char:draw()
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(self.img.current, jpm.screen.x(self.x), jpm.screen.y(self.y), self.r, 0.75, 0.75, 60, 125)
+	love.graphics.draw(self.img.current, jpm.screen.x(self.x), jpm.screen.y(self.y), self.r, jpm.screen.x(self.scale[1]), jpm.screen.y(self.scale[2]), 60, 125)
+end
+
+function jpm.char:checkCollisions()
+	for k, v in pairs(jpm.objects) do
+		if self.x+self.w > v.x and self.x-self.w < v.x+v.size then
+			if self.y+self.b > v.y and self.y-self.t < v.y+v.size then
+				self:onHit()
+			end
+		end
+	end
+end
+
+function jpm.char:onHit()
+	self.x = 50
 end

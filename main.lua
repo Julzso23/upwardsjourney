@@ -37,7 +37,7 @@ function love.update(dt)
 	end
 	
 	for k, v in pairs(jpm.players) do
-		v:checkCollisions()
+		v:checkCollisions(dt)
 	end
 end
 

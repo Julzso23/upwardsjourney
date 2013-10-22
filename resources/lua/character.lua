@@ -35,7 +35,7 @@ function jpm.char:setX(pos)
 	self.x = pos
 end
 function jpm.char:setY(pos)
-	self.y = jpm.screen.x(pos)
+	self.y = pos
 end
 
 function jpm.char:move(dir, dt, amount)
@@ -71,16 +71,21 @@ function jpm.char:draw()
 	love.graphics.draw(self.img.current, jpm.screen.x(self.x), jpm.screen.y(self.y), self.r, jpm.screen.x(self.scale[1]), jpm.screen.y(self.scale[2]), 60, 125)
 end
 
-function jpm.char:checkCollisions()
+function jpm.char:checkCollisions(dt)
+	self:move("up", dt, 0.025)
 	for k, v in pairs(jpm.objects) do
 		if self.x+self.w > v.x and self.x-self.w < v.x+v.size then
 			if self.y+self.b > v.y and self.y-self.t < v.y+v.size then
-				self:onHit()
+				self:onHit(dt)
 			end
 		end
 	end
 end
 
-function jpm.char:onHit()
-	self.x = 50
+function jpm.char:onHit(dt)
+	self:move("down", dt, 1.5)
+	if self.y > 100 then
+		self:setX(50)
+		self:setY(85)
+	end
 end

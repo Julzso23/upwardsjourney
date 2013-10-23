@@ -10,6 +10,9 @@ function jpm.controls.keyboard(dt)
 	if right then
 		jpm.players[1]:move("right", dt, 1)
 	end
+	if left and right then
+		jpm.players[1]:idle()
+	end
 	if not left and not right then
 		jpm.players[1]:idle()
 	end

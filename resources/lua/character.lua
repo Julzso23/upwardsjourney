@@ -40,12 +40,24 @@ end
 
 function jpm.char:move(dir, dt, amount)
 	if dir == "left" then
-		self.x = self.x - ((self.spd*amount)*dt)
-		self.img.current = self.img.left
+		if self.x > 2.8 then
+			self.x = self.x - ((self.spd*amount)*dt)
+			self.img.current = self.img.left
+			self.r = -0.2
+		else
+			self.x = 2.8
+			self:idle()
+		end
 	end
 	if dir == "right" then
-		self.x = self.x + ((self.spd*amount)*dt)
-		self.img.current = self.img.right
+		if self.x < 97.2 then
+			self.x = self.x + ((self.spd*amount)*dt)
+			self.img.current = self.img.right
+			self.r = 0.2
+		else
+			self.x = 97.2
+			self:idle()
+		end
 	end
 
 	if dir == "up" then
@@ -57,6 +69,7 @@ function jpm.char:move(dir, dt, amount)
 end
 function jpm.char:idle()
 	self.img.current = self.img.idle
+	self.r = 0
 end
 
 function jpm.char:getSpd()
@@ -72,7 +85,9 @@ function jpm.char:draw()
 end
 
 function jpm.char:checkCollisions(dt)
-	self:move("up", dt, 0.025)
+	if self.y > 65 then
+		self:move("up", dt, 0.025)
+	end
 	for k, v in pairs(jpm.objects) do
 		if self.x+self.w > v.x and self.x-self.w < v.x+v.size then
 			if self.y+self.b > v.y and self.y-self.t < v.y+v.size then

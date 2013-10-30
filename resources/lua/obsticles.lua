@@ -32,7 +32,7 @@ function jpm.obsticles.randomise(dt)
 		jpm.obsticles.pick = math.random(1, 10)
 		for k, v in pairs(jpm.objects) do
 			if k == jpm.obsticles.pick then
-				v:fall(math.random(150, 250))
+				v:fall()
 			end
 		end
 	else
@@ -40,12 +40,12 @@ function jpm.obsticles.randomise(dt)
 	end
 end
 
-function jpm.obsticles:fall(spd)
+function jpm.obsticles:fall()
 	self.act = true
-	self.speed = spd
 end
 
 function jpm.obsticles:update(key, dt)
+	self.spd = self.spd + 0.5*dt
 	self.x = (key-1)*10
 	if self.act then
 		if self.y <= 100 then

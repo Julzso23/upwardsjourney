@@ -43,7 +43,7 @@ function jpm.char:move(dir, dt, amount)
 		if self.x > 2.8 then
 			self.x = self.x - ((self.spd*amount)*dt)
 			self.img.current = self.img.left
-			self.r = -0.2
+			self.r = -amount/2
 		else
 			self.x = 2.8
 			self:idle()
@@ -53,7 +53,7 @@ function jpm.char:move(dir, dt, amount)
 		if self.x < 97.2 then
 			self.x = self.x + ((self.spd*amount)*dt)
 			self.img.current = self.img.right
-			self.r = 0.2
+			self.r = amount/2
 		else
 			self.x = 97.2
 			self:idle()

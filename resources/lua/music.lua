@@ -17,7 +17,7 @@ function jpm.music.init()
 		jpm.music.current = love.audio.newSource(jpm.music.userMusic[jpm.music.currentId], "stream")
 		jpm.music.current:play()
 	else
-		jpm.music.currentId = 1
+		jpm.music.currentId = -1
 		jpm.music.current = love.audio.newSource("resources/audio/"..math.random(1,5)..".mp3", "stream")
 		jpm.music.current:play()
 	end
@@ -26,12 +26,14 @@ end
 function jpm.music.update()
 	if jpm.music.current:isStopped() then
 		jpm.music.current = love.audio.newSource("resources/audio/"..math.random(1,5)..".mp3", "stream")
-		if #jpm.music.userMusic > jpm.music.currentId then
-			jpm.music.currentId = jpm.music.currentId + 1
-			jpm.music.current = love.audio.newSource(jpm.music.userMusic[jpm.music.currentId], "stream")
-		else
-			jpm.music.currentId = 1
-			jpm.music.current = love.audio.newSource(jpm.music.userMusic[jpm.music.currentId], "stream")
+		if jpm.music.currentId > 0 then
+			if #jpm.music.userMusic > jpm.music.currentId then
+				jpm.music.currentId = jpm.music.currentId + 1
+				jpm.music.current = love.audio.newSource(jpm.music.userMusic[jpm.music.currentId], "stream")
+			else
+				jpm.music.currentId = 1
+				jpm.music.current = love.audio.newSource(jpm.music.userMusic[jpm.music.currentId], "stream")
+			end
 		end
 		jpm.music.current:play()
 	end

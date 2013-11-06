@@ -1,6 +1,10 @@
 jpm.controls = {}
 
 function jpm.controls.keyboard(dt)
+	if love.keyboard.isDown("lalt") and love.keyboard.isDown("f4") then
+		love.event.push("quit")
+	end
+
 	local left = love.keyboard.isDown("left") or love.keyboard.isDown("a")
 	local right = love.keyboard.isDown("right") or love.keyboard.isDown("d")
 
@@ -19,6 +23,10 @@ function jpm.controls.keyboard(dt)
 end
 
 function jpm.controls.controller(dt)
+	if love.joystick.isDown(1, 9) then
+		love.event.push("quit")
+	end
+
 	local left = love.keyboard.isDown("left") or love.keyboard.isDown("a")
 	local right = love.keyboard.isDown("right") or love.keyboard.isDown("d")
 	local axis = love.joystick.getAxis(1, 1)

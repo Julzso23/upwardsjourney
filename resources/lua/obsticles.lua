@@ -45,7 +45,6 @@ function jpm.obsticles:fall()
 end
 
 function jpm.obsticles:update(key, dt)
-	self.spd = self.spd + 0.5*dt
 	self.x = (key-1)*10
 	if self.act then
 		if self.y <= 100 then

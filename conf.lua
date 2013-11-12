@@ -6,10 +6,10 @@ function love.conf(t)
 	t.version = "0.8.0"
 	t.console = false
 	t.release = false
-	t.screen.width = 1280
-	t.screen.height = 720
-	t.screen.fullscreen = false
-	t.screen.vsync = false
+	t.screen.width = 1920
+	t.screen.height = 1080
+	t.screen.fullscreen = true
+	t.screen.vsync = true
 	t.screen.fsaa = 0
 	t.modules.joystick = true
 	t.modules.audio = true

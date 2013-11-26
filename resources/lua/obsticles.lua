@@ -6,6 +6,7 @@ jpm.objects = {}
 jpm.obsticles.timer = 0
 jpm.obsticles.pick = 0
 
+--For making new obsticles
 function jpm.obsticles.newObject()
 	local o = {}
 	setmetatable(o, jpm.obsticles)
@@ -19,6 +20,7 @@ function jpm.obsticles.newObject()
 	return o
 end
 
+--Generate the amount and size of the obsticles
 function jpm.obsticles.generate()
 	local count = 0
 	while count <= 10 do
@@ -26,6 +28,8 @@ function jpm.obsticles.generate()
 		table.insert(jpm.objects, jpm.obsticles.newObject())
 	end
 end
+
+--Randomly pick an obsticle to fall every 0.25 of a second
 function jpm.obsticles.randomise(dt)
 	if jpm.obsticles.timer > 0.25 then
 		jpm.obsticles.timer = 0
@@ -40,10 +44,12 @@ function jpm.obsticles.randomise(dt)
 	end
 end
 
+--Tell an obsticle to fall
 function jpm.obsticles:fall()
 	self.act = true
 end
 
+--Update the obsticle's y position (this makes it fall)
 function jpm.obsticles:update(key, dt)
 	self.x = (key-1)*10
 	if self.act then
@@ -56,6 +62,7 @@ function jpm.obsticles:update(key, dt)
 	end
 end
 
+--Draw the obsticle on the screen for you to see
 function jpm.obsticles:draw()
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", jpm.screen.x(self.x), jpm.screen.y(self.y), jpm.screen.x(self.size), jpm.screen.x(self.size))

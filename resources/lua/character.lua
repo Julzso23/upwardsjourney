@@ -3,6 +3,7 @@ jpm.players = {}
 jpm.char = {}
 jpm.char.__index = jpm.char
 
+--For adding new players
 function jpm.char.newPlayer()
 	local p = {}
 	setmetatable(p, jpm.char)
@@ -13,11 +14,13 @@ function jpm.char.newPlayer()
 	p.scale = {0.059, 0.104}
 	p.spd = 75
 	p.img = {
+		--Define images for animating
 		current = nil,
 		idle = love.graphics.newImage("resources/images/characters/main/idle.png"),
 		left = love.graphics.newImage("resources/images/characters/main/left.png"),
 		right = love.graphics.newImage("resources/images/characters/main/right.png")
 	}
+	--Some values for collision box sizing
 	p.w = 3.1
 	p.b = 6.9
 	p.t = 11
@@ -38,10 +41,11 @@ function jpm.char:setY(pos)
 	self.y = pos
 end
 
+--Move a certain amount in a specified direction
 function jpm.char:move(dir, dt, amount)
 	if dir == "left" then
 		if self.x > 2.8 then
-			self.x = self.x - ((self.spd*amount)*dt)
+			self.x = self.x - ((self.spd*amount)*dt) --*dt means per second
 			self.img.current = self.img.left
 			self.r = -amount/2
 		else

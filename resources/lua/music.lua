@@ -16,6 +16,8 @@ function jpm.music.init()
 		end
 	end
 	
+	love.audio.setVolume(0.25)
+
 	--Determine if the user has any custom music to play, if not, play the default music
 	if #jpm.music.userMusic > 0 then
 		jpm.music.currentId = 1

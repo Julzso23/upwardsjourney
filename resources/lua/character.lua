@@ -16,9 +16,9 @@ function jpm.char.newPlayer()
 	p.img = {
 		--Define images for animating
 		current = nil,
-		idle = love.graphics.newImage("resources/images/characters/main/idle.png"),
-		left = love.graphics.newImage("resources/images/characters/main/left.png"),
-		right = love.graphics.newImage("resources/images/characters/main/right.png")
+		idle = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),
+		left = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),
+		right = love.graphics.newImage("resources/images/characters/main/unhappy1.png")
 	}
 	--Some values for collision box sizing
 	p.w = 3.1
@@ -48,6 +48,8 @@ function jpm.char:move(dir, dt, amount)
 			self.x = self.x - ((self.spd*amount)*dt) --*dt means per second
 			self.img.current = self.img.left
 			self.r = -amount/2
+
+			jpm.particles.fire:setPosition(jpm.screen.x(jpm.players[1]:getX()+amount*0.75+1), jpm.screen.y(jpm.players[1]:getY()-amount*2+8))
 		else
 			self.x = 2.8
 			self:idle()
@@ -58,6 +60,8 @@ function jpm.char:move(dir, dt, amount)
 			self.x = self.x + ((self.spd*amount)*dt)
 			self.img.current = self.img.right
 			self.r = amount/2
+
+			jpm.particles.fire:setPosition(jpm.screen.x(jpm.players[1]:getX()-amount*1.25+1), jpm.screen.y(jpm.players[1]:getY()-amount*2+8))
 		else
 			self.x = 97.2
 			self:idle()
@@ -74,6 +78,8 @@ end
 function jpm.char:idle()
 	self.img.current = self.img.idle
 	self.r = 0
+
+	jpm.particles.fire:setPosition(jpm.screen.x(jpm.players[1]:getX()+1), jpm.screen.y(jpm.players[1]:getY()+8))
 end
 
 function jpm.char:getSpd()

@@ -9,6 +9,10 @@ function love.load()
 	require("resources/lua/gui")
 	require("resources/lua/music")
 	require("resources/lua/effects")
+	require("resources/lua/particles")
+
+	--Record the screen size for game scaling
+	jpm.screen.init()
 
 	--Make the player
 	table.insert(jpm.players, jpm.char.newPlayer())
@@ -19,6 +23,8 @@ function love.load()
 	jpm.music.init()
 
 	jpm.effects.background.init()
+
+	jpm.particles.init()
 
 	--Add the logo
 	logo = love.graphics.newImage("resources/images/other/Upwards Journey.png")
@@ -47,15 +53,19 @@ function love.update(dt)
 	for k, v in pairs(jpm.players) do
 		v:checkCollisions(dt)
 	end
+
+	jpm.particles.update(dt)
 end
 
 function love.draw()
 	jpm.effects.background.draw()
 
+	jpm.particles.draw()
 	--Draw all player(s)
 	for k, v in pairs(jpm.players) do
 		v:draw()
 	end
+
 	--Draw all the obsticles
 	for k, v in pairs(jpm.objects) do
 		v:draw()

@@ -49,7 +49,8 @@ function jpm.char:move(dir, dt, amount)
 			self.img.current = self.img.left
 			self.r = -amount/2
 
-			jpm.particles.fire:setPosition(jpm.screen.x(jpm.players[1]:getX()+amount*0.75+1), jpm.screen.y(jpm.players[1]:getY()-amount*2+8))
+			jpm.particles.fire1:setPosition(jpm.screen.x(jpm.players[1]:getX()+amount*2.6-0.5), jpm.screen.y(jpm.players[1]:getY()+amount*0.5+9))
+			jpm.particles.fire2:setPosition(jpm.screen.x(jpm.players[1]:getX()+amount*2.6+2), jpm.screen.y(jpm.players[1]:getY()-amount*2+9))
 		else
 			self.x = 2.8
 			self:idle()
@@ -61,7 +62,8 @@ function jpm.char:move(dir, dt, amount)
 			self.img.current = self.img.right
 			self.r = amount/2
 
-			jpm.particles.fire:setPosition(jpm.screen.x(jpm.players[1]:getX()-amount*1.25+1), jpm.screen.y(jpm.players[1]:getY()-amount*2+8))
+			jpm.particles.fire1:setPosition(jpm.screen.x(jpm.players[1]:getX()-amount*2-0.5), jpm.screen.y(jpm.players[1]:getY()-amount*2+9))
+			jpm.particles.fire2:setPosition(jpm.screen.x(jpm.players[1]:getX()-amount*2+2), jpm.screen.y(jpm.players[1]:getY()+amount*0.5+9))
 		else
 			self.x = 97.2
 			self:idle()
@@ -79,7 +81,8 @@ function jpm.char:idle()
 	self.img.current = self.img.idle
 	self.r = 0
 
-	jpm.particles.fire:setPosition(jpm.screen.x(jpm.players[1]:getX()+1), jpm.screen.y(jpm.players[1]:getY()+8))
+	jpm.particles.fire1:setPosition(jpm.screen.x(jpm.players[1]:getX()-0.5), jpm.screen.y(jpm.players[1]:getY()+9))
+	jpm.particles.fire2:setPosition(jpm.screen.x(jpm.players[1]:getX()+2), jpm.screen.y(jpm.players[1]:getY()+9))
 end
 
 function jpm.char:getSpd()

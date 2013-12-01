@@ -5,15 +5,15 @@ function jpm.effects.background.init()
 	--Load in the sky image for the background
 	jpm.effects.background.image = love.graphics.newImage("resources/images/effects/background.png")
 	--Position the bottom of the image with the bottom of the screen
-	jpm.effects.background.y = -601
+	jpm.effects.background.y = -602
 end
 
 function jpm.effects.background.update(dt)
 	--Move the image down the screen until it has to loop, then move it back up
-	if jpm.effects.background.y < -1 then
+	if jpm.effects.background.y < -2 then
 		jpm.effects.background.y = jpm.effects.background.y + 100*dt
 	else
-		jpm.effects.background.y = -601
+		jpm.effects.background.y = -602
 	end
 end
 function jpm.effects.background.draw()

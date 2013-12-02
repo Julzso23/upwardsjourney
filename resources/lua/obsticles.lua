@@ -3,8 +3,18 @@ jpm.obsticles.__index = jpm.obsticles
 
 jpm.objects = {}
 
+jpm.obsticles.startTimer = 5
+jpm.obsticles.started = false
 jpm.obsticles.timer = 0
 jpm.obsticles.pick = 0
+
+function jpm.obsticles.countDown(dt)
+	if jpm.obsticles.startTimer <= 0 then
+		jpm.obsticles.started = true
+	else
+		jpm.obsticles.startTimer = jpm.obsticles.startTimer - dt
+	end
+end
 
 --For making new obsticles
 function jpm.obsticles.newObject()

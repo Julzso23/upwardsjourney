@@ -10,6 +10,7 @@ function love.load()
 	require("resources/lua/music")
 	require("resources/lua/effects")
 	require("resources/lua/particles")
+	require("resources/lua/hud")
 
 	--Record the screen size for game scaling
 	jpm.screen.init()
@@ -26,8 +27,7 @@ function love.load()
 
 	jpm.particles.init()
 
-	--Add the logo
-	logo = love.graphics.newImage("resources/images/other/Upwards Journey.png")
+	jpm.hud.init()
 
 	--Make the background white
 	love.graphics.setBackgroundColor(255, 255, 255)
@@ -41,12 +41,14 @@ function love.update(dt)
 	jpm.controls.keyboard(dt)
 	jpm.controls.controller(dt)
 
-	--Pick a random obsticle to fall
-	jpm.obsticles.randomise(dt)
+	if jpm.obsticles.started then
+		--Pick a random obsticle to fall
+		jpm.obsticles.randomise(dt)
 
-	--Make the obsticles fall
-	for k, v in pairs(jpm.objects) do
-		v:update(k, dt)
+		--Make the obsticles fall
+		for k, v in pairs(jpm.objects) do
+			v:update(k, dt)
+		end
 	end
 	
 	--Check for collisions with the player(s)
@@ -55,6 +57,8 @@ function love.update(dt)
 	end
 
 	jpm.particles.update(dt)
+
+	jpm.obsticles.countDown(dt)
 end
 
 function love.draw()
@@ -71,6 +75,5 @@ function love.draw()
 		v:draw()
 	end
 
-	--Put the logo on the screen
-	love.graphics.draw(logo, jpm.screen.x(50), 0, 0, 0.4, 0.4, 512, 0)
+	jpm.hud.draw()
 end

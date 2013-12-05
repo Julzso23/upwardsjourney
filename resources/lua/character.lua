@@ -15,7 +15,7 @@ function jpm.char.newPlayer()
 	p.spd = 75
 	p.img = {
 		--Define images for animating
-		current = nil,
+		current = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),
 		idle = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),
 		left = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),
 		right = love.graphics.newImage("resources/images/characters/main/unhappy1.png")

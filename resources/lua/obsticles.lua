@@ -25,7 +25,8 @@ function jpm.obsticles.newObject()
 	o.y = -18
 	o.size = 10
 	o.act = false
-	o.spd = 150
+	o.spd = 100
+	o.accel = 250
 
 	return o
 end
@@ -41,14 +42,10 @@ end
 
 --Randomly pick an obsticle to fall every 0.25 of a second
 function jpm.obsticles.randomise(dt)
-	if jpm.obsticles.timer > 0.25 then
+	if jpm.obsticles.timer > 0.2 then
 		jpm.obsticles.timer = 0
 		jpm.obsticles.pick = math.random(1, 10)
-		for k, v in pairs(jpm.objects) do
-			if k == jpm.obsticles.pick then
-				v:fall()
-			end
-		end
+		jpm.objects[jpm.obsticles.pick]:fall()
 	else
 		jpm.obsticles.timer = jpm.obsticles.timer + dt
 	end
@@ -65,9 +62,11 @@ function jpm.obsticles:update(key, dt)
 	if self.act then
 		if self.y <= 100 then
 			self.y = self.y + self.spd*dt
+			self.spd = self.spd + self.accel*dt
 		else
 			self.act = false
 			self.y = -18
+			self.spd = 100
 		end
 	end
 end

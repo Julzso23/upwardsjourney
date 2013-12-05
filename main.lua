@@ -2,6 +2,7 @@ jpm = {}
 
 function love.load()
 	--Include all teh files
+	require("resources/lua/core")
 	require("resources/lua/character")
 	require("resources/lua/controls")
 	require("resources/lua/obsticles")
@@ -11,6 +12,7 @@ function love.load()
 	require("resources/lua/effects")
 	require("resources/lua/particles")
 	require("resources/lua/hud")
+	require("resources/lua/menus")
 
 	--Record the screen size for game scaling
 	jpm.screen.init()
@@ -41,24 +43,26 @@ function love.update(dt)
 	jpm.controls.keyboard(dt)
 	jpm.controls.controller(dt)
 
-	if jpm.obsticles.started then
-		--Pick a random obsticle to fall
-		jpm.obsticles.randomise(dt)
+	if not jpm.core.paused then
+		if jpm.obsticles.started then
+			--Pick a random obsticle to fall
+			jpm.obsticles.randomise(dt)
 
-		--Make the obsticles fall
-		for k, v in pairs(jpm.objects) do
-			v:update(k, dt)
+			--Make the obsticles fall
+			for k, v in pairs(jpm.objects) do
+				v:update(k, dt)
+			end
 		end
-	end
 	
-	--Check for collisions with the player(s)
-	for k, v in pairs(jpm.players) do
-		v:checkCollisions(dt)
+		--Check for collisions with the player(s)
+		for k, v in pairs(jpm.players) do
+			v:checkCollisions(dt)
+		end
+
+		jpm.obsticles.countDown(dt)
 	end
 
 	jpm.particles.update(dt)
-
-	jpm.obsticles.countDown(dt)
 end
 
 function love.draw()
@@ -75,5 +79,23 @@ function love.draw()
 		v:draw()
 	end
 
-	jpm.hud.draw()
+	if not jpm.core.paused then
+		jpm.hud.draw()
+	end
+
+	if jpm.core.paused then
+		jpm.menu.draw()
+	end
+end
+
+function love.keyreleased(key)
+	if jpm.core.paused then
+		jpm.menu.press("key", key)
+	end
+end
+
+function love.joystickreleased(joystick, button)
+	if jpm.core.paused then
+		jpm.menu.press("joy", button)
+	end
 end

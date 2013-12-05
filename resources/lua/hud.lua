@@ -2,7 +2,7 @@ jpm.hud = {}
 
 function jpm.hud.init()
 	jpm.hud.logo = love.graphics.newImage("resources/images/other/Upwards Journey.png")
-	jpm.hud.font = love.graphics.newFont("resources/fonts/CD_B.ttf", 20)
+	jpm.hud.font = love.graphics.newFont("resources/fonts/CD_B.ttf", 30)
 	love.graphics.setFont(jpm.hud.font)
 end
 

@@ -8,8 +8,8 @@ jpm.menu.main = {
 }
 jpm.menu.options = {
 	{"Resolution", function() jpm.menu.cur = jpm.menu.options_res end},
-	{"Volume", function()  end},
-	{"Back", function() jpm.menu.cur = jpm.menu.main end}
+	{"Volume", function() jpm.menu.cur = jpm.menu.options_vol end},
+	{"Back", function() jpm.menu.cur = jpm.menu.main jpm.core.saveOptions() end}
 }
 	jpm.menu.options_res = {
 		{"1024 x 576", function() love.graphics.setMode(1024, 576) jpm.screen.init() end},
@@ -18,16 +18,33 @@ jpm.menu.options = {
 		{"1920 x 1080", function() love.graphics.setMode(1920, 1080) jpm.screen.init() end},
 		{"Back", function() jpm.menu.cur = jpm.menu.main end}
 	}
+	jpm.menu.options_vol = {
+		{"0%", function() love.audio.setVolume(0) end},
+		{"20%", function() love.audio.setVolume(0.2) end},
+		{"40%", function() love.audio.setVolume(0.4) end},
+		{"60%", function() love.audio.setVolume(0.6) end},
+		{"80%", function() love.audio.setVolume(0.8) end},
+		{"100%", function() love.audio.setVolume(1) end},
+		{"Back", function() jpm.menu.cur = jpm.menu.main end}
+	}
 
 jpm.menu.cur = jpm.menu.main
 
 function jpm.menu.press(type, pressed)
 	if type == "key" then
+		if pressed == "escape" then
+			jpm.menu.cur = jpm.menu.main
+			jpm.core.saveOptions()
+		end
 		if pressed == "return" then
 			jpm.menu.cur[jpm.menu.id][2]()
 			jpm.menu.id = 1
 		end
 	elseif type == "joy" then
+		if pressed == 3 then
+			jpm.menu.cur = jpm.menu.main
+			jpm.core.saveOptions()
+		end
 		if pressed == 2 then
 			jpm.menu.cur[jpm.menu.id][2]()
 			jpm.menu.id = 1

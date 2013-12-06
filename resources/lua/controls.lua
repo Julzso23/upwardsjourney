@@ -1,5 +1,6 @@
 jpm.controls = {}
-jpm.controls.timer = 0.03
+jpm.controls.delay = 0.3
+jpm.controls.timer = jpm.controls.delay
 
 function jpm.controls.keyboard(dt)
 	if jpm.controls.timer < 0.5 then
@@ -35,7 +36,7 @@ function jpm.controls.keyboard(dt)
 			jpm.players[1]:idle()
 		end
 	else
-		if jpm.controls.timer >= 0.5 then
+		if jpm.controls.timer >= jpm.controls.delay then
 			if left then
 				jpm.controls.timer = 0
 				if jpm.menu.id > 1 then
@@ -77,17 +78,21 @@ function jpm.controls.controller(dt)
 			jpm.players[1]:idle()
 		end
 	else
-		if jpm.controls.timer >= 0.5 then
-			if axis < -0.03 then
+		if jpm.controls.timer >= jpm.controls.delay then
+			if axis < -0.1 then
 				jpm.controls.timer = 0
 				if jpm.menu.id > 1 then
 					jpm.menu.id = jpm.menu.id - 1
+				else
+					jpm.menu.id = #jpm.menu.cur
 				end
 			end
-			if axis > 0.03 then
+			if axis > 0.1 then
 				jpm.controls.timer = 0
 				if jpm.menu.id < #jpm.menu.cur then
 					jpm.menu.id = jpm.menu.id + 1
+				else
+					jpm.menu.id = 1
 				end
 			end
 		end

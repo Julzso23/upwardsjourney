@@ -31,6 +31,8 @@ function love.load()
 
 	jpm.hud.init()
 
+	jpm.core.loadOptions()
+
 	--Make the background white
 	love.graphics.setBackgroundColor(255, 255, 255)
 end

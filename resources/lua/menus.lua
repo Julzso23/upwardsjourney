@@ -1,5 +1,7 @@
 jpm.menu = {}
 
+jpm.menu.buttonImg = love.graphics.newImage("resources/images/menu/button.png")
+
 jpm.menu.id = 1
 jpm.menu.main = {
 	{"Play", function() jpm.core.paused = false end},
@@ -16,7 +18,7 @@ jpm.menu.options = {
 		{"1280 x 720", function() love.graphics.setMode(1280, 720) jpm.screen.init() end},
 		{"1600 x 900", function() love.graphics.setMode(1600, 900) jpm.screen.init() end},
 		{"1920 x 1080", function() love.graphics.setMode(1920, 1080) jpm.screen.init() end},
-		{"Back", function() jpm.menu.cur = jpm.menu.main end}
+		{"Back", function() jpm.menu.cur = jpm.menu.options end}
 	}
 	jpm.menu.options_vol = {
 		{"0%", function() love.audio.setVolume(0) end},
@@ -25,7 +27,7 @@ jpm.menu.options = {
 		{"60%", function() love.audio.setVolume(0.6) end},
 		{"80%", function() love.audio.setVolume(0.8) end},
 		{"100%", function() love.audio.setVolume(1) end},
-		{"Back", function() jpm.menu.cur = jpm.menu.main end}
+		{"Back", function() jpm.menu.cur = jpm.menu.options end}
 	}
 
 jpm.menu.cur = jpm.menu.main
@@ -33,6 +35,7 @@ jpm.menu.cur = jpm.menu.main
 function jpm.menu.press(type, pressed)
 	if type == "key" then
 		if pressed == "escape" then
+			jpm.menu.id = 1
 			jpm.menu.cur = jpm.menu.main
 			jpm.core.saveOptions()
 		end
@@ -42,6 +45,7 @@ function jpm.menu.press(type, pressed)
 		end
 	elseif type == "joy" then
 		if pressed == 3 then
+			jpm.menu.id = 1
 			jpm.menu.cur = jpm.menu.main
 			jpm.core.saveOptions()
 		end
@@ -55,8 +59,10 @@ end
 function jpm.menu.draw()
 	for k, v in pairs(jpm.menu.cur) do
 		if jpm.menu.id == k then
-			love.graphics.setColor(100, 100, 100, 150)
-			love.graphics.rectangle("fill", jpm.screen.x(25), jpm.screen.y(10), jpm.screen.x(50), jpm.screen.y(10))
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.draw(jpm.menu.buttonImg, jpm.screen.x(25), jpm.screen.y(10), 0, jpm.screen.y(0.092593), jpm.screen.y(0.092593))
+			--love.graphics.setColor(100, 100, 100, 150)
+			--love.graphics.rectangle("fill", jpm.screen.x(25), jpm.screen.y(10), jpm.screen.x(50), jpm.screen.y(10))
 
 			love.graphics.setColor(0, 0, 0, 255)
 			love.graphics.printf(v[1], jpm.screen.x(25), jpm.screen.y(13), jpm.screen.x(50), "center")

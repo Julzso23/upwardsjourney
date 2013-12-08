@@ -41,12 +41,16 @@ function jpm.controls.keyboard(dt)
 				jpm.controls.timer = 0
 				if jpm.menu.id > 1 then
 					jpm.menu.id = jpm.menu.id - 1
+				else
+					jpm.menu.id = #jpm.menu.cur
 				end
 			end
 			if right then
 				jpm.controls.timer = 0
 				if jpm.menu.id < #jpm.menu.cur then
 					jpm.menu.id = jpm.menu.id + 1
+				else
+					jpm.menu.id = 1
 				end
 			end
 		end

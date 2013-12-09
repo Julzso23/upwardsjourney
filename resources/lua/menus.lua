@@ -10,14 +10,15 @@ jpm.menu.main = {
 }
 jpm.menu.options = {
 	{"Resolution", function() jpm.menu.cur = jpm.menu.options_res end},
+	{"Fullscreen", function() love.graphics.setMode(jpm.screen.w, jpm.screen.h, not jpm.screen.f) end},
 	{"Volume", function() jpm.menu.cur = jpm.menu.options_vol end},
 	{"Back", function() jpm.menu.cur = jpm.menu.main jpm.core.saveOptions() end}
 }
 	jpm.menu.options_res = {
-		{"1024 x 576", function() love.graphics.setMode(1024, 576) jpm.screen.init() end},
-		{"1280 x 720", function() love.graphics.setMode(1280, 720) jpm.screen.init() end},
-		{"1600 x 900", function() love.graphics.setMode(1600, 900) jpm.screen.init() end},
-		{"1920 x 1080", function() love.graphics.setMode(1920, 1080) jpm.screen.init() end},
+		{"1024 x 576", function() love.graphics.setMode(1024, 576, jpm.screen.f) end},
+		{"1280 x 720", function() love.graphics.setMode(1280, 720, jpm.screen.f) end},
+		{"1600 x 900", function() love.graphics.setMode(1600, 900, jpm.screen.f) end},
+		{"1920 x 1080", function() love.graphics.setMode(1920, 1080, jpm.screen.f) end},
 		{"Back", function() jpm.menu.cur = jpm.menu.options end}
 	}
 	jpm.menu.options_vol = {
@@ -37,9 +38,11 @@ function jpm.menu.press(type, pressed)
 		if pressed == "escape" then
 			jpm.menu.id = 1
 			jpm.menu.cur = jpm.menu.main
+			jpm.screen.init()
 			jpm.core.saveOptions()
 		end
 		if pressed == "return" then
+			jpm.screen.init()
 			jpm.menu.cur[jpm.menu.id][2]()
 			jpm.menu.id = 1
 		end
@@ -47,9 +50,11 @@ function jpm.menu.press(type, pressed)
 		if pressed == 3 then
 			jpm.menu.id = 1
 			jpm.menu.cur = jpm.menu.main
+			jpm.screen.init()
 			jpm.core.saveOptions()
 		end
 		if pressed == 2 then
+			 jpm.screen.init()
 			jpm.menu.cur[jpm.menu.id][2]()
 			jpm.menu.id = 1
 		end

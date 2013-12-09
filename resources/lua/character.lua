@@ -25,6 +25,8 @@ function jpm.char.newPlayer()
 	p.b = 6.9
 	p.t = 11
 
+	p.score = 0
+
 	return p
 end
 
@@ -97,8 +99,12 @@ function jpm.char:draw()
 	love.graphics.draw(self.img.current, jpm.screen.x(self.x), jpm.screen.y(self.y), self.r, jpm.screen.x(self.scale[1]), jpm.screen.y(self.scale[2]), 60, 125)
 end
 
+function jpm.char:update(dt)
+	self.score = self.score + dt
+end
+
 function jpm.char:checkCollisions(dt)
-	if self.y > 65 then
+	if self.y > 60 then
 		self:move("up", dt, 0.025)
 	end
 	for k, v in pairs(jpm.objects) do

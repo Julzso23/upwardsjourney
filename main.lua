@@ -14,6 +14,8 @@ function love.load()
 	require("resources/lua/hud")
 	require("resources/lua/menus")
 
+	jpm.core.loadOptions()
+
 	--Record the screen size for game scaling
 	jpm.screen.init()
 
@@ -30,8 +32,6 @@ function love.load()
 	jpm.particles.init()
 
 	jpm.hud.init()
-
-	jpm.core.loadOptions()
 
 	--Make the background white
 	love.graphics.setBackgroundColor(255, 255, 255)
@@ -59,6 +59,7 @@ function love.update(dt)
 		--Check for collisions with the player(s)
 		for k, v in pairs(jpm.players) do
 			v:checkCollisions(dt)
+			v:update(dt)
 		end
 
 		jpm.obsticles.countDown(dt)

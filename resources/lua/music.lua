@@ -3,7 +3,7 @@ jpm.music = {}
 function jpm.music.init()
 	--If there is no folder for custom music in appdata, make one
 	if not love.filesystem.exists("music") then
-		love.filesystem.mkdir("music")
+		love.filesystem.createDirectory("music")
 	end
 	--Make a list of all the files in the custom music folder
 	jpm.music.userFiles = love.filesystem.getDirectoryItems("music")

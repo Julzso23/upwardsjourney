@@ -32,7 +32,7 @@ end
 
 function jpm.core.loadOptions()
 	if not love.filesystem.exists("saves") then
-		love.filesystem.mkdir("saves")
+		love.filesystem.createDirectory("saves")
 	else
 		if love.filesystem.exists("saves/options.ujf") then
 			local readings = love.filesystem.read("saves/options.ujf")

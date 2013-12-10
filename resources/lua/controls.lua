@@ -58,16 +58,17 @@ function jpm.controls.keyboard(dt)
 end
 
 function jpm.controls.controller(dt)
-	--This is set up for the buttons on a Logitech Cordless Rumblepad 2
+	--This is set up for the buttons on an Xbox360 gamepad
 
 	--Define what the left and right keys are to avoid idle animation conflicts
 	local left = love.keyboard.isDown("left") or love.keyboard.isDown("a")
 	local right = love.keyboard.isDown("right") or love.keyboard.isDown("d")
-	--Define what the axis is (left stick)
-	local axis = love.joystick.getAxis(1, 1)
+	
+	local gamepad = love.joystick.getJoysticks()[1]
+	local axis = gamepad:getGamepadAxis("leftx")
 
 	if not jpm.core.paused then
-		if love.joystick.isDown(1, 10) then
+		if gamepad:isGamepadDown("start") then
 			jpm.core.paused = true
 		end
 

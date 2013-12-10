@@ -6,7 +6,7 @@ function jpm.music.init()
 		love.filesystem.mkdir("music")
 	end
 	--Make a list of all the files in the custom music folder
-	jpm.music.userFiles = love.filesystem.enumerate("music")
+	jpm.music.userFiles = love.filesystem.getDirectoryItems("music")
 	jpm.music.userMusic = {}
 	--Check if each object in the custom music folder is a file (not a folder etc.)
 	for k, v in pairs(jpm.music.userFiles) do

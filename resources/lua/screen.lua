@@ -1,7 +1,8 @@
 jpm.screen = {}
 
 function jpm.screen.init()
-	jpm.screen.w, jpm.screen.h, jpm.screen.f = love.graphics.getMode()
+	jpm.screen.w, jpm.screen.h, jpm.screen.flags = love.window.getMode()
+	jpm.screen.f = jpm.screen.flags.fullscreen
 end
 
 --Convert a percentage to a position/size depending on screen size

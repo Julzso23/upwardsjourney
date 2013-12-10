@@ -25,9 +25,9 @@ function jpm.core.saveOptions()
 		love.filesystem.mkdir("saves")
 	end
 
-	local width, height, fullscreen, vsync, fsaa = love.graphics.getMode()
+	local width, height, flags = love.window.getMode()
 	local volume = love.audio.getVolume()
-	love.filesystem.write("saves/options.ujf", tostring(width) ..":".. tostring(height) ..":".. tostring(fullscreen) ..":".. tostring(vsync) ..":".. tostring(fsaa) ..":".. tostring(volume))
+	love.filesystem.write("saves/options.ujf", tostring(width) ..":".. tostring(height) ..":".. tostring(flags.fullscreen) ..":".. tostring(flags.vsync) ..":".. tostring(flags.fsaa) ..":".. tostring(volume))
 end
 
 function jpm.core.loadOptions()
@@ -38,7 +38,7 @@ function jpm.core.loadOptions()
 			local readings = love.filesystem.read("saves/options.ujf")
 			readings = string.explode(readings, ":")
 			local width, height, fullscreen, vsync, fsaa, volume = readings[1], readings[2], readings[3], readings[4], readings[5], readings[6]
-			love.graphics.setMode(tonumber(width), tonumber(height), tobool(fullscreen), tobool(vsync), tonumber(fsaa))
+			love.window.setMode(tonumber(width), tonumber(height), {fullscreen = tobool(fullscreen), vsync = tobool(vsync), fsaa = tonumber(fsaa)})
 			jpm.screen.init()
 			love.audio.setVolume(tonumber(volume))
 		end

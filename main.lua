@@ -7,7 +7,6 @@ function love.load()
 	require("resources/lua/controls")
 	require("resources/lua/obsticles")
 	require("resources/lua/screen")
-	require("resources/lua/gui")
 	require("resources/lua/music")
 	require("resources/lua/effects")
 	require("resources/lua/particles")
@@ -97,7 +96,7 @@ function love.keyreleased(key)
 	end
 end
 
-function love.joystickreleased(joystick, button)
+function love.gamepadreleased( joystick, button )
 	if jpm.core.paused then
 		jpm.menu.press("joy", button)
 	end

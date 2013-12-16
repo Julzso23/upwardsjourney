@@ -6,7 +6,7 @@ jpm.menu.id = 1
 jpm.menu.main = {
 	{"Play", function() jpm.core.paused = false end},
 	{"Options", function() jpm.menu.cur = jpm.menu.options end},
-	{"Exit", function() love.event.push("quit") end}
+	{"Exit", function() love.event.quit() end}
 }
 jpm.menu.options = {
 	{"Resolution", function() jpm.menu.cur = jpm.menu.options_res end},
@@ -44,6 +44,7 @@ function jpm.menu.press(type, pressed)
 		if pressed == "return" then
 			jpm.screen.init()
 			jpm.menu.cur[jpm.menu.id][2]()
+			jpm.screen.init()
 			jpm.menu.id = 1
 		end
 	elseif type == "joy" then
@@ -54,8 +55,9 @@ function jpm.menu.press(type, pressed)
 			jpm.core.saveOptions()
 		end
 		if pressed == "a" then
-			 jpm.screen.init()
+			jpm.screen.init()
 			jpm.menu.cur[jpm.menu.id][2]()
+			jpm.screen.init()
 			jpm.menu.id = 1
 		end
 	end

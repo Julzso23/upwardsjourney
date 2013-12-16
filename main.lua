@@ -21,9 +21,6 @@ function love.load()
 	--Make the player
 	table.insert(jpm.players, jpm.char.newPlayer())
 
-	--Make the falling obsticles
-	jpm.obsticles.generate()
-
 	jpm.music.init()
 
 	jpm.effects.background.init()
@@ -57,7 +54,9 @@ function love.update(dt)
 	
 		--Check for collisions with the player(s)
 		for k, v in pairs(jpm.players) do
-			v:checkCollisions(dt)
+			if not v.dead then
+				v:checkCollisions(dt)
+			end
 			v:update(dt)
 		end
 
@@ -100,4 +99,15 @@ function love.gamepadreleased( joystick, button )
 	if jpm.core.paused then
 		jpm.menu.press("joy", button)
 	end
+end
+
+function love.resize(w, h)
+	jpm.screen.init()
+end
+
+function love.joystickadded(joystick)
+	print("Joystick \""..joystick:getName().."\" added!")
+end
+function love.joystickremoved(joystick)
+	print("Joystick \""..joystick:getName().."\" removed!")
 end

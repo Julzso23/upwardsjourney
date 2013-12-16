@@ -25,6 +25,7 @@ function jpm.char.newPlayer()
 	p.b = 6.9
 	p.t = 11
 
+	p.dead = false
 	p.score = 0
 
 	return p
@@ -100,7 +101,9 @@ function jpm.char:draw()
 end
 
 function jpm.char:update(dt)
-	self.score = self.score + dt
+	if not self.dead then
+		self.score = self.score + dt
+	end
 end
 
 function jpm.char:checkCollisions(dt)
@@ -121,5 +124,8 @@ function jpm.char:onHit(dt)
 	if self.y > 100 then
 		self:setX(50)
 		self:setY(85)
+		self.dead = true
+		self.score = 0
+		jpm.obsticles.reset()
 	end
 end

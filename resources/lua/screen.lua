@@ -1,6 +1,7 @@
 jpm.screen = {}
 
 function jpm.screen.init()
+	love.mouse.setVisible(false)
 	jpm.screen.w, jpm.screen.h, jpm.screen.flags = love.window.getMode()
 	jpm.screen.f = jpm.screen.flags.fullscreen
 end

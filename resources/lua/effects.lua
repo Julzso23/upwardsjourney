@@ -19,5 +19,5 @@ end
 function jpm.effects.background.draw()
 	--Draw the background on the screen
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(jpm.effects.background.image, 0, jpm.screen.y(jpm.effects.background.y), 0, jpm.screen.x(0.078125), jpm.screen.y(0.1388888888888888888888888))
+	love.graphics.draw(jpm.effects.background.image, 0, jpm.screen.y(jpm.effects.background.y), 0, jpm.screen.x(100/1280), jpm.screen.y(100/720))
 end

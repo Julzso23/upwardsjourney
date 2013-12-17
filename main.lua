@@ -6,6 +6,7 @@ function love.load()
 	require("resources/lua/character")
 	require("resources/lua/controls")
 	require("resources/lua/obsticles")
+	require("resources/lua/pickups")
 	require("resources/lua/screen")
 	require("resources/lua/music")
 	require("resources/lua/effects")
@@ -45,9 +46,13 @@ function love.update(dt)
 		if jpm.obsticles.started then
 			--Pick a random obsticle to fall
 			jpm.obsticles.randomise(dt)
+			jpm.pickups.randomise(dt)
 
 			--Make the obsticles fall
 			for k, v in pairs(jpm.objects) do
+				v:update(k, dt)
+			end
+			for k, v in pairs(jpm.items) do
 				v:update(k, dt)
 			end
 		end
@@ -75,6 +80,9 @@ function love.draw()
 		v:draw()
 	end
 
+	for k, v in pairs(jpm.items) do
+		v:draw()
+	end
 	--Draw all the obsticles
 	for k, v in pairs(jpm.objects) do
 		v:draw()

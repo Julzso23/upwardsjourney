@@ -6,7 +6,6 @@ jpm.objects = {}
 jpm.obsticles.startTimer = 5
 jpm.obsticles.started = false
 jpm.obsticles.timer = 0
-jpm.obsticles.pick = 0
 
 function jpm.obsticles.countDown(dt)
 	if jpm.obsticles.startTimer <= 0 then
@@ -31,15 +30,6 @@ function jpm.obsticles.newObject(x)
 	o.accel = 200
 
 	return o
-end
-
---Generate the amount and size of the obsticles
-function jpm.obsticles.generate()
-	local count = 0
-	while count <= 10 do
-		count = count + 1
-		table.insert(jpm.objects, jpm.obsticles.newObject())
-	end
 end
 
 function jpm.obsticles.reset()

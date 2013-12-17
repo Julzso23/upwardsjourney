@@ -117,6 +117,14 @@ function jpm.char:checkCollisions(dt)
 			end
 		end
 	end
+	for k, v in pairs(jpm.items) do
+		if self.x+self.w > v.x and self.x-self.w < v.x+v.size then
+			if self.y+self.b > v.y and self.y-self.t < v.y+v.size then
+				v:remove(k)
+				self:collectPickup()
+			end
+		end
+	end
 end
 
 function jpm.char:onHit(dt)
@@ -127,5 +135,10 @@ function jpm.char:onHit(dt)
 		self.dead = true
 		self.score = 0
 		jpm.obsticles.reset()
+		jpm.pickups.reset()
 	end
+end
+
+function jpm.char:collectPickup()
+	self.score = self.score + 10
 end

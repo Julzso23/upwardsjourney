@@ -27,7 +27,7 @@ function jpm.obsticles.newObject(x)
 	o.y = -18
 	o.size = 10
 	o.spd = 100
-	o.accel = 200
+	o.accel = 100
 
 	return o
 end

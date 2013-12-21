@@ -41,16 +41,20 @@ function jpm.controls.keyboard(dt)
 				jpm.controls.timer = 0
 				if jpm.menu.id > 1 then
 					jpm.menu.id = jpm.menu.id - 1
+					jpm.menu.direction = "left"
 				else
 					jpm.menu.id = #jpm.menu.cur
+					jpm.menu.direction = "right"
 				end
 			end
 			if right then
 				jpm.controls.timer = 0
 				if jpm.menu.id < #jpm.menu.cur then
 					jpm.menu.id = jpm.menu.id + 1
+					jpm.menu.direction = "right"
 				else
 					jpm.menu.id = 1
+					jpm.menu.direction = "left"
 				end
 			end
 		end
@@ -85,20 +89,24 @@ function jpm.controls.controller(dt)
 			end
 		else
 			if jpm.controls.timer >= jpm.controls.delay then
-				if axis < -0.1 then
+				if axis < -0.25 then
 					jpm.controls.timer = 0
 					if jpm.menu.id > 1 then
 						jpm.menu.id = jpm.menu.id - 1
+						jpm.menu.direction = "left"
 					else
 						jpm.menu.id = #jpm.menu.cur
+						jpm.menu.direction = "right"
 					end
 				end
-				if axis > 0.1 then
+				if axis > 0.25 then
 					jpm.controls.timer = 0
 					if jpm.menu.id < #jpm.menu.cur then
 						jpm.menu.id = jpm.menu.id + 1
+						jpm.menu.direction = "right"
 					else
 						jpm.menu.id = 1
+						jpm.menu.direction = "left"
 					end
 				end
 			end

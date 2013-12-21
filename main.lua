@@ -42,6 +42,8 @@ function love.update(dt)
 	jpm.controls.keyboard(dt)
 	jpm.controls.controller(dt)
 
+	jpm.menu.animate(dt)
+
 	if not jpm.core.paused then
 		if jpm.obsticles.started then
 			--Pick a random obsticle to fall

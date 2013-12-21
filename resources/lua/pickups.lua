@@ -14,6 +14,7 @@ function jpm.pickups.newPickup(x)
 	o.y = -18
 	o.size = 10
 	o.spd = 100
+	o.img = love.graphics.newImage("resources/images/drops/coin.png")
 
 	return o
 end
@@ -47,6 +48,6 @@ end
 
 --Draw the pickup on the screen for you to see
 function jpm.pickups:draw()
-	love.graphics.setColor(150, 150, 150)
-	love.graphics.rectangle("fill", jpm.screen.x(self.x), jpm.screen.y(self.y), jpm.screen.x(self.size), jpm.screen.x(self.size))
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.draw(self.img, jpm.screen.x(self.x), jpm.screen.y(self.y), 0, jpm.screen.x(100/1280), jpm.screen.x(100/1280))
 end

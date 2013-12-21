@@ -3,6 +3,7 @@ jpm.menu = {}
 jpm.menu.buttonImg = love.graphics.newImage("resources/images/menu/button.png")
 
 jpm.menu.id = 1
+
 jpm.menu.main = {
 	{"Play", function() jpm.core.paused = false end},
 	{"Options", function() jpm.menu.cur = jpm.menu.options end},
@@ -33,44 +34,69 @@ jpm.menu.options = {
 
 jpm.menu.cur = jpm.menu.main
 
+jpm.menu.direction = ""
+jpm.menu.position = 1
+jpm.menu.speed = 4
+
+function jpm.menu.select()
+	if jpm.menu.position == math.floor(jpm.menu.position) then
+		jpm.screen.init()
+		jpm.menu.cur[jpm.menu.id][2]()
+		jpm.screen.init()
+		jpm.menu.id = 1
+		jpm.menu.position = 1
+	end
+end
+function jpm.menu.back()
+	jpm.menu.id = 1
+	jpm.menu.position = 1
+	jpm.menu.cur = jpm.menu.main
+	jpm.screen.init()
+	jpm.core.saveOptions()
+end
+
 function jpm.menu.press(type, pressed)
 	if type == "key" then
 		if pressed == "escape" then
-			jpm.menu.id = 1
-			jpm.menu.cur = jpm.menu.main
-			jpm.screen.init()
-			jpm.core.saveOptions()
+			jpm.menu.back()
 		end
 		if pressed == "return" then
-			jpm.screen.init()
-			jpm.menu.cur[jpm.menu.id][2]()
-			jpm.screen.init()
-			jpm.menu.id = 1
+			jpm.menu.select()
 		end
 	elseif type == "joy" then
 		if pressed == "b" then
-			jpm.menu.id = 1
-			jpm.menu.cur = jpm.menu.main
-			jpm.screen.init()
-			jpm.core.saveOptions()
+			jpm.menu.back()
 		end
 		if pressed == "a" then
-			jpm.screen.init()
-			jpm.menu.cur[jpm.menu.id][2]()
-			jpm.screen.init()
-			jpm.menu.id = 1
+			jpm.menu.select()
+		end
+	end
+end
+
+function jpm.menu.animate(dt)
+	if jpm.menu.direction == "left" then
+		if jpm.menu.position >= jpm.menu.id then
+			jpm.menu.position = jpm.menu.position - jpm.menu.speed*dt
+		else
+			jpm.menu.position = jpm.menu.id
+			jpm.menu.direction = ""
+		end
+	elseif jpm.menu.direction == "right" then
+		if jpm.menu.position <= jpm.menu.id then
+			jpm.menu.position = jpm.menu.position + jpm.menu.speed*dt
+		else
+			jpm.menu.position = jpm.menu.id
+			jpm.menu.direction = ""
 		end
 	end
 end
 
 function jpm.menu.draw()
 	for k, v in pairs(jpm.menu.cur) do
-		if jpm.menu.id == k then
-			love.graphics.setColor(255, 255, 255, 255)
-			love.graphics.draw(jpm.menu.buttonImg, jpm.screen.x(25), jpm.screen.y(10), 0, jpm.screen.y(0.092593), jpm.screen.y(0.092593))
+		love.graphics.setColor(255, 255, 255, 255)
+		love.graphics.draw(jpm.menu.buttonImg, jpm.screen.x(25-((jpm.menu.position-1)*60)+((k-1)*60)), jpm.screen.y(10), 0, jpm.screen.y(0.092593), jpm.screen.y(0.092593))
 
-			love.graphics.setColor(0, 0, 0, 255)
-			love.graphics.printf(v[1], jpm.screen.x(25), jpm.screen.y(13), jpm.screen.x(50), "center")
-		end
+		love.graphics.setColor(0, 0, 0, 255)
+		love.graphics.printf(v[1], jpm.screen.x(25-((jpm.menu.position-1)*60)+((k-1)*60)), jpm.screen.y(13), jpm.screen.x(50), "center")
 	end
 end

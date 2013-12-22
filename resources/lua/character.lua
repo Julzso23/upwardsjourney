@@ -128,8 +128,8 @@ function jpm.char:checkCollisions(dt)
 end
 
 function jpm.char:onHit(dt)
-	self:move("down", dt, 1.5)
-	if self.y > 100 then
+	self:move("down", dt, 1.2)
+	if self.y > 103 then
 		self:setX(50)
 		self:setY(85)
 		self.dead = true

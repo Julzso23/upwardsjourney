@@ -10,18 +10,23 @@ jpm.menu.main = {
 	{"Exit", function() love.event.quit() end}
 }
 jpm.menu.options = {
-	{"Resolution", function() jpm.menu.cur = jpm.menu.options_res end},
-	{"Fullscreen", function() love.window.setMode(jpm.screen.w, jpm.screen.h, {fullscreen = not jpm.screen.f}) end},
+	{"Video", function() jpm.menu.cur = jpm.menu.options_video end},
 	{"Volume", function() jpm.menu.cur = jpm.menu.options_vol end},
 	{"Back", function() jpm.menu.cur = jpm.menu.main jpm.core.saveOptions() end}
 }
-	jpm.menu.options_res = {
-		{"1024 x 576", function() love.window.setMode(1024, 576, {fullscreen = jpm.screen.f}) end},
-		{"1280 x 720", function() love.window.setMode(1280, 720, {fullscreen = jpm.screen.f}) end},
-		{"1600 x 900", function() love.window.setMode(1600, 900, {fullscreen = jpm.screen.f}) end},
-		{"1920 x 1080", function() love.window.setMode(1920, 1080, {fullscreen = jpm.screen.f}) end},
+	jpm.menu.options_video = {
+		{"Resolution", function() jpm.menu.cur = jpm.menu.options_video_res end},
+		{"Fullscreen", function() jpm.screen.setOption("full") end},
+		{"Vsync", function() jpm.screen.setOption("vsync") end},
 		{"Back", function() jpm.menu.cur = jpm.menu.options end}
 	}
+		jpm.menu.options_video_res = {
+			{"1024 x 576", function() jpm.screen.setOption("res", {1024, 576}) end},
+			{"1280 x 720", function() jpm.screen.setOption("res", {1280, 720}) end},
+			{"1600 x 900", function() jpm.screen.setOption("res", {1600, 900}) end},
+			{"1920 x 1080", function() jpm.screen.setOption("res", {1920, 1080}) end},
+			{"Back", function() jpm.menu.cur = jpm.menu.options_video end}
+		}
 	jpm.menu.options_vol = {
 		{"0%", function() love.audio.setVolume(0) end},
 		{"20%", function() love.audio.setVolume(0.2) end},

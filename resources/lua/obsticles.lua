@@ -3,7 +3,7 @@ jpm.obsticles.__index = jpm.obsticles
 
 jpm.objects = {}
 
-jpm.obsticles.startTimer = 5
+jpm.obsticles.startTimer = 3
 jpm.obsticles.started = false
 jpm.obsticles.timer = 0
 
@@ -26,7 +26,7 @@ function jpm.obsticles.newObject(x)
 	o.x = x
 	o.y = -18
 	o.size = 10
-	o.spd = 100
+	o.spd = 150
 	o.accel = 100
 
 	return o
@@ -34,9 +34,9 @@ end
 
 function jpm.obsticles.reset()
 	jpm.objects = {}
-	
+	jpm.obsticles.timer = 0
 	jpm.obsticles.started = false
-	jpm.obsticles.startTimer = 5
+	jpm.obsticles.startTimer = 3
 end
 
 --Randomly pick an obsticle to fall every 0.25 of a second

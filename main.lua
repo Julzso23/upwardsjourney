@@ -19,8 +19,7 @@ function love.load()
 	--Record the screen size for game scaling
 	jpm.screen.init()
 
-	--Make the player
-	table.insert(jpm.players, jpm.char.newPlayer())
+	jpm.char.init()
 
 	jpm.music.init()
 

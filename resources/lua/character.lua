@@ -3,6 +3,10 @@ jpm.players = {}
 jpm.char = {}
 jpm.char.__index = jpm.char
 
+function jpm.char.init()
+	table.insert(jpm.players, jpm.char.newPlayer())
+end
+
 --For adding new players
 function jpm.char.newPlayer()
 	local p = {}
@@ -107,14 +111,17 @@ function jpm.char:update(dt)
 end
 
 function jpm.char:checkCollisions(dt)
+	local gamepad = love.joystick.getJoysticks()[1]
+
 	if self.y > 60 then
 		self:move("up", dt, 0.025)
 	end
 	for k, v in pairs(jpm.objects) do
-		if self.x+self.w > v.x and self.x-self.w < v.x+v.size then
-			if self.y+self.b > v.y and self.y-self.t < v.y+v.size then
-				self:onHit(dt)
-			end
+		if self.x+self.w > v.x and self.x-self.w < v.x+v.size and self.y+self.b > v.y and self.y-self.t < v.y+v.size then
+			self:onHit(dt)
+			gamepad:setVibration(1, 1)
+		else
+			gamepad:setVibration(0, 0)
 		end
 	end
 	for k, v in pairs(jpm.items) do

@@ -21,18 +21,28 @@ jpm.menu.options = {
 		{"Back", function() jpm.menu.cur = jpm.menu.options end}
 	}
 		jpm.menu.options_video_res = {
+			{"640 x 360", function() jpm.screen.setOption("res", {640, 360}) end},
+			{"854 x 480", function() jpm.screen.setOption("res", {854, 480}) end},
+			{"960 x 540", function() jpm.screen.setOption("res", {960, 540}) end},
 			{"1024 x 576", function() jpm.screen.setOption("res", {1024, 576}) end},
 			{"1280 x 720", function() jpm.screen.setOption("res", {1280, 720}) end},
+			{"1366 x 768", function() jpm.screen.setOption("res", {1366, 768}) end},
 			{"1600 x 900", function() jpm.screen.setOption("res", {1600, 900}) end},
 			{"1920 x 1080", function() jpm.screen.setOption("res", {1920, 1080}) end},
 			{"Back", function() jpm.menu.cur = jpm.menu.options_video end}
 		}
+		
 	jpm.menu.options_vol = {
 		{"0%", function() love.audio.setVolume(0) end},
+		{"10%", function() love.audio.setVolume(0.1) end},
 		{"20%", function() love.audio.setVolume(0.2) end},
+		{"30%", function() love.audio.setVolume(00.3) end},
 		{"40%", function() love.audio.setVolume(0.4) end},
+		{"50%", function() love.audio.setVolume(0.5) end},
 		{"60%", function() love.audio.setVolume(0.6) end},
+		{"70%", function() love.audio.setVolume(0.7) end},
 		{"80%", function() love.audio.setVolume(0.8) end},
+		{"90%", function() love.audio.setVolume(0.9) end},
 		{"100%", function() love.audio.setVolume(1) end},
 		{"Back", function() jpm.menu.cur = jpm.menu.options end}
 	}

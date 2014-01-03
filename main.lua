@@ -20,6 +20,7 @@ function love.load()
 	jpm.screen.init()
 
 	jpm.char.init()
+	jpm.core.loadPlayer()
 
 	jpm.music.init()
 

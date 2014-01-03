@@ -29,7 +29,6 @@ function jpm.core.saveOptions()
 	local volume = love.audio.getVolume()
 	love.filesystem.write("saves/options.ujf", tostring(width) ..":".. tostring(height) ..":".. tostring(flags.fullscreen) ..":".. tostring(flags.vsync) ..":".. tostring(flags.fsaa) ..":".. tostring(volume))
 end
-
 function jpm.core.loadOptions()
 	if not love.filesystem.exists("saves") then
 		love.filesystem.createDirectory("saves")
@@ -41,6 +40,28 @@ function jpm.core.loadOptions()
 			love.window.setMode(tonumber(width), tonumber(height), {fullscreen = tobool(fullscreen), vsync = tobool(vsync), fsaa = tonumber(fsaa)})
 			jpm.screen.init()
 			love.audio.setVolume(tonumber(volume))
+		end
+	end
+end
+
+function jpm.core.savePlayer()
+	if not love.filesystem.exists("saves") then
+		love.filesystem.mkdir("saves")
+	end
+
+	local score = jpm.players[1].score
+	love.filesystem.write("saves/player1.ujf", tostring(score) ..":")
+	print("Saving player1")
+end
+function jpm.core.loadPlayer()
+	if not love.filesystem.exists("saves") then
+		love.filesystem.createDirectory("saves")
+	else
+		if love.filesystem.exists("saves/player1.ujf") then
+			local readings = love.filesystem.read("saves/player1.ujf")
+			readings = string.explode(readings, ":")
+			local score = tonumber(readings[1])
+			jpm.players[1].score = score
 		end
 	end
 end

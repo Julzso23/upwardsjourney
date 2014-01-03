@@ -146,4 +146,5 @@ end
 
 function jpm.char:collectPickup()
 	self.score = self.score + 10
+	jpm.core.savePlayer()
 end

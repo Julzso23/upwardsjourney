@@ -105,9 +105,8 @@ function jpm.char:draw()
 end
 
 function jpm.char:update(dt)
-	if not self.dead then
-		self.score = self.score + dt
-	end
+	--if not self.dead then
+	--end
 end
 
 function jpm.char:checkCollisions(dt)
@@ -140,7 +139,6 @@ function jpm.char:onHit(dt)
 		self:setX(50)
 		self:setY(85)
 		self.dead = true
-		self.score = 0
 		jpm.obsticles.reset()
 		jpm.pickups.reset()
 	end

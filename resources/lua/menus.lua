@@ -12,6 +12,7 @@ jpm.menu.main = {
 jpm.menu.options = {
 	{"Video", function() jpm.menu.cur = jpm.menu.options_video end},
 	{"Volume", function() jpm.menu.cur = jpm.menu.options_vol end},
+	{"Change tune", function() jpm.music.current:stop() end},
 	{"Back", function() jpm.menu.cur = jpm.menu.main jpm.core.saveOptions() end}
 }
 	jpm.menu.options_video = {
@@ -109,9 +110,9 @@ end
 function jpm.menu.draw()
 	for k, v in pairs(jpm.menu.cur) do
 		love.graphics.setColor(255, 255, 255, 255)
-		love.graphics.draw(jpm.menu.buttonImg, jpm.screen.x(25-((jpm.menu.position-1)*60)+((k-1)*60)), jpm.screen.y(10), 0, jpm.screen.y(0.092593), jpm.screen.y(0.092593))
+		love.graphics.draw(jpm.menu.buttonImg, jpm.screen.x(25-((jpm.menu.position-1)*60)+((k-1)*60)), jpm.screen.y(25), 0, jpm.screen.y(0.092593), jpm.screen.y(0.092593))
 
 		love.graphics.setColor(0, 0, 0, 255)
-		love.graphics.printf(v[1], jpm.screen.x(25-((jpm.menu.position-1)*60)+((k-1)*60)), jpm.screen.y(13), jpm.screen.x(50), "center")
+		love.graphics.printf(v[1], jpm.screen.x(25-((jpm.menu.position-1)*60)+((k-1)*60)), jpm.screen.y(28), jpm.screen.x(50), "center")
 	end
 end

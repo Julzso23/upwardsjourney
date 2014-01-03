@@ -43,7 +43,7 @@ end
 function jpm.obsticles.randomise(dt)
 	if jpm.obsticles.timer > 0.2 then
 		jpm.obsticles.timer = 0
-		table.insert(jpm.objects, jpm.obsticles.newObject(math.random(0, 9)*10))
+		table.insert(jpm.objects, jpm.obsticles.newObject(math.random(0, 18)*5))
 	else
 		jpm.obsticles.timer = jpm.obsticles.timer + dt
 	end

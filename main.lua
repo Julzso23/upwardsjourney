@@ -89,9 +89,7 @@ function love.draw()
 		v:draw()
 	end
 
-	if not jpm.core.paused then
-		jpm.hud.draw()
-	end
+	jpm.hud.draw()
 
 	if jpm.core.paused then
 		jpm.menu.draw()

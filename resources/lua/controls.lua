@@ -73,6 +73,17 @@ function jpm.controls.controller(dt)
 		local axis = gamepad:getGamepadAxis("leftx")
 
 		if not jpm.core.paused then
+			if gamepad:isGamepadDown("a") then
+				if jpm.players[1].boost > 0 then
+					if jpm.players[1].y > 60 then
+						jpm.players[1].boost = jpm.players[1].boost - 50*dt
+						jpm.players[1]:move("up", dt, 0.5)
+					end
+				else
+					jpm.players[1].boost = 0
+				end
+			end
+
 			if gamepad:isGamepadDown("start") then
 				jpm.core.paused = true
 			end

@@ -51,7 +51,6 @@ function jpm.core.savePlayer()
 
 	local score = jpm.players[1].score
 	love.filesystem.write("saves/player1.ujf", tostring(score) ..":")
-	print("Saving player1")
 end
 function jpm.core.loadPlayer()
 	if not love.filesystem.exists("saves") then

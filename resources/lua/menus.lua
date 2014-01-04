@@ -6,8 +6,18 @@ jpm.menu.id = 1
 
 jpm.menu.main = {
 	{"Play", function() jpm.core.paused = false end},
+	{"Ye Olde Shoppe", function() jpm.menu.cur = jpm.menu.shop end},
 	{"Options", function() jpm.menu.cur = jpm.menu.options end},
 	{"Exit", function() love.event.quit() end}
+}
+jpm.menu.shop = {
+	{"100ml Booster Fuel [1000 points]", function()
+		if jpm.players[1].score >= 1000 then
+			jpm.players[1].score = jpm.players[1].score -1000
+			jpm.players[1].boost = jpm.players[1].boost + 100
+		end
+	end},
+	{"Back", function() jpm.menu.cur = jpm.menu.main jpm.core.saveOptions() end}
 }
 jpm.menu.options = {
 	{"Video", function() jpm.menu.cur = jpm.menu.options_video end},
@@ -52,7 +62,7 @@ jpm.menu.cur = jpm.menu.main
 
 jpm.menu.direction = ""
 jpm.menu.position = 1
-jpm.menu.speed = 4
+jpm.menu.speed = 6
 
 function jpm.menu.select()
 	if jpm.menu.position == math.floor(jpm.menu.position) then
@@ -61,6 +71,7 @@ function jpm.menu.select()
 		jpm.screen.init()
 		jpm.menu.id = 1
 		jpm.menu.position = 1
+		jpm.core.savePlayer()
 	end
 end
 function jpm.menu.back()

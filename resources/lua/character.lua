@@ -17,6 +17,7 @@ function jpm.char.newPlayer()
 	p.r = 0
 	p.scale = {0.059, 0.104}
 	p.spd = 75
+	p.boost = 500
 	p.img = {
 		--Define images for animating
 		current = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),

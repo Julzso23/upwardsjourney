@@ -2,20 +2,6 @@ jpm.core = {}
 
 jpm.core.paused = true
 
-function string.explode(str, div)
-	assert(type(str) == "string" and type(div) == "string", "invalid arguments")
-	local o = {}
-	while true do
-		local pos1,pos2 = str:find(div)
-		if not pos1 then
-			o[#o+1] = str
-			break
-		end
-		o[#o+1],str = str:sub(1,pos1-1),str:sub(pos2+1)
-	end
-	return o
-end
-
 function tobool(v)
 	return v and ( (type(v)=="number") and (v==1) or ( (type(v)=="string") and (v=="true") ) )
 end
@@ -49,8 +35,8 @@ function jpm.core.savePlayer()
 		love.filesystem.mkdir("saves")
 	end
 
-	local score = jpm.players[1].score
-	love.filesystem.write("saves/player1.ujf", tostring(score) ..":")
+	local score, time = jpm.players[1].score, jpm.players[1].time
+	love.filesystem.write("saves/player1.ujf", tostring(score) ..":".. tostring(time))
 end
 function jpm.core.loadPlayer()
 	if not love.filesystem.exists("saves") then
@@ -59,8 +45,9 @@ function jpm.core.loadPlayer()
 		if love.filesystem.exists("saves/player1.ujf") then
 			local readings = love.filesystem.read("saves/player1.ujf")
 			readings = string.explode(readings, ":")
-			local score = tonumber(readings[1])
+			local score, time = tonumber(readings[1]), tonumber(readings[2])
 			jpm.players[1].score = score
+			jpm.players[1].time = time
 		end
 	end
 end

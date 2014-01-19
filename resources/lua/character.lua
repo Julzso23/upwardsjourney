@@ -17,7 +17,7 @@ function jpm.char.newPlayer()
 	p.r = 0
 	p.scale = {0.059, 0.104}
 	p.spd = 75
-	p.boost = 500
+	p.boost = 0
 	p.img = {
 		--Define images for animating
 		current = love.graphics.newImage("resources/images/characters/main/unhappy1.png"),
@@ -32,6 +32,7 @@ function jpm.char.newPlayer()
 
 	p.dead = false
 	p.score = 0
+	p.time = 0
 
 	return p
 end
@@ -106,8 +107,9 @@ function jpm.char:draw()
 end
 
 function jpm.char:update(dt)
-	--if not self.dead then
-	--end
+	if not self.dead then
+		self.time = self.time + dt
+	end
 end
 
 function jpm.char:checkCollisions(dt)
@@ -136,12 +138,15 @@ end
 
 function jpm.char:onHit(dt)
 	self:move("down", dt, 1.2)
-	if self.y > 103 then
+	if self.y > 110 then
 		self:setX(50)
 		self:setY(85)
 		self.dead = true
 		jpm.obsticles.reset()
 		jpm.pickups.reset()
+		self.time = 0
+		self.score = 0
+		jpm.core.savePlayer()
 	end
 end
 

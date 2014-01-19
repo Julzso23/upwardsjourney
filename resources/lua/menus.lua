@@ -11,9 +11,9 @@ jpm.menu.main = {
 	{"Exit", function() love.event.quit() end}
 }
 jpm.menu.shop = {
-	{"100ml Booster Fuel [1000 points]", function()
-		if jpm.players[1].score >= 1000 then
-			jpm.players[1].score = jpm.players[1].score -1000
+	{"100ml Booster Fuel [200 points]", function()
+		if jpm.players[1].score >= 200 then
+			jpm.players[1].score = jpm.players[1].score -200
 			jpm.players[1].boost = jpm.players[1].boost + 100
 		end
 	end},

@@ -14,7 +14,7 @@ function love.conf(t)
     t.window.fullscreen = false
     t.window.fullscreentype = "normal"
     t.window.vsync = false
-    t.window.fsaa = 0
+    t.window.fsaa = 2
     t.window.display = 1
 
     t.modules.audio = true

@@ -1,6 +1,6 @@
 jpm.core = {}
-
 jpm.core.paused = true
+jpm.core.msg = require("resources/lib/MessagePack")
 
 function tobool(v)
 	return v and ( (type(v)=="number") and (v==1) or ( (type(v)=="string") and (v=="true") ) )
@@ -11,21 +11,23 @@ function jpm.core.saveOptions()
 		love.filesystem.mkdir("saves")
 	end
 
-	local width, height, flags = love.window.getMode()
-	local volume = love.audio.getVolume()
-	love.filesystem.write("saves/options.ujf", tostring(width) ..":".. tostring(height) ..":".. tostring(flags.fullscreen) ..":".. tostring(flags.vsync) ..":".. tostring(flags.fsaa) ..":".. tostring(volume))
+	local data = {
+		width, height, flags = love.window.getMode(),
+		volume = love.audio.getVolume()
+	}
+	
+	love.filesystem.write("saves/options.ujf", jpm.core.msg.pack(data))
 end
 function jpm.core.loadOptions()
 	if not love.filesystem.exists("saves") then
 		love.filesystem.createDirectory("saves")
 	else
 		if love.filesystem.exists("saves/options.ujf") then
-			local readings = love.filesystem.read("saves/options.ujf")
-			readings = string.explode(readings, ":")
-			local width, height, fullscreen, vsync, fsaa, volume = readings[1], readings[2], readings[3], readings[4], readings[5], readings[6]
-			love.window.setMode(tonumber(width), tonumber(height), {fullscreen = tobool(fullscreen), vsync = tobool(vsync), fsaa = tonumber(fsaa)})
+			local data = love.filesystem.read("saves/options.ujf")
+			data = jpm.core.msg.unpack(data)
+			love.window.setMode(data.width, data.height, data.flags)
 			jpm.screen.init()
-			love.audio.setVolume(tonumber(volume))
+			love.audio.setVolume(data.volume)
 		end
 	end
 end
@@ -35,19 +37,21 @@ function jpm.core.savePlayer()
 		love.filesystem.mkdir("saves")
 	end
 
-	local score, time = jpm.players[1].score, jpm.players[1].time
-	love.filesystem.write("saves/player1.ujf", tostring(score) ..":".. tostring(time))
+	local data = {
+		score = jpm.players[1].score,
+		time = jpm.players[1].time
+	}
+	love.filesystem.write("saves/player1.ujf", jpm.core.msg.pack(data))
 end
 function jpm.core.loadPlayer()
 	if not love.filesystem.exists("saves") then
 		love.filesystem.createDirectory("saves")
 	else
 		if love.filesystem.exists("saves/player1.ujf") then
-			local readings = love.filesystem.read("saves/player1.ujf")
-			readings = string.explode(readings, ":")
-			local score, time = tonumber(readings[1]), tonumber(readings[2])
-			jpm.players[1].score = score
-			jpm.players[1].time = time
+			local data = love.filesystem.read("saves/player1.ujf")
+			data = jpm.core.msg.unpack(data)
+			jpm.players[1].score = data.score
+			jpm.players[1].time = data.time
 		end
 	end
 end
